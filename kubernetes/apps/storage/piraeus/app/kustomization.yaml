@@ -1,0 +1,11 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  namespace: storage
+resources:
+  - ./crds.yaml
+  - ./helmrelease.yaml
+  - ./talos-patch.yaml
+  - ./storagepool.yaml
+  - ./storageclass.yaml

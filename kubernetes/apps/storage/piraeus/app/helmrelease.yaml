@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app piraeus-operator
+  namespace: storage
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: ./charts/piraeus
+      sourceRef:
+        kind: GitRepository
+        name: piraeus-operator
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5

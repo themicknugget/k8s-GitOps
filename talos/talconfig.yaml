@@ -1,0 +1,347 @@
+clusterName: &cluster k8s
+clusterPodNets:
+  - 10.244.0.0/16
+clusterSvcNets:
+  - 10.245.0.0/16
+talosVersion: v1.3.7
+kubernetesVersion: 1.26.3
+endpoint: https://k8s.${domainName}:6443
+additionalApiServerCertSans:
+  - ${clusterEndpointIP}
+additionalMachineCertSans:
+  - ${clusterEndpointIP}
+  - k8s.${domainName}
+cniConfig:
+  name: custom
+  urls:
+    - https://github.com/themicknugget/k8s-GitOps/raw/main/talos/integrations/calico.yaml
+nodes:
+  # HP Elitedesk 800 G3 DM 3.1GHz / 24GB / 1TB NVMe / 1GbE+2.5GbE
+  - hostname: elite1.k8s.${domainName}
+    ipAddress: 192.168.1.51
+    installDiskSelector:
+      serial: 23052C802518
+    controlPlane: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - eth0
+            - eth1
+          # deviceSelectors:
+          #   - hardwareAddr: 10:e7:c6:04:4a:25
+          #   - hardwareAddr: 1c:fd:08:7a:98:64
+          mode: balance-alb
+        addresses:
+          - 192.168.1.51/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+        vip:
+          ip: ${clusterEndpointIP}
+    nodeLabels: &masterLabels
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: m
+      linbit.com/storagenode: "true"
+    patches: &intelextensions
+      - |-
+        machine:
+          install:
+            extensions:
+              - image: ghcr.io/siderolabs/i915-ucode:20230404
+              - image: ghcr.io/siderolabs/intel-ucode:20230214
+
+  # HP Elitedesk 800 G3 DM 3.1GHz / 24GB / 1TB NVMe / 1GbE+2.5GbE
+  - hostname: elite2.k8s.${domainName}
+    ipAddress: 192.168.1.52
+    installDiskSelector:
+      serial: 230631800537
+    controlPlane: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - eth0
+            - eth1
+          # deviceSelectors:
+          #   - hardwareAddr: 10:62:e5:18:73:9e
+          #   - hardwareAddr: 1c:fd:08:7a:98:47
+          mode: balance-alb
+        addresses:
+          - 192.168.1.52/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+        vip:
+          ip: ${clusterEndpointIP}
+    nodeLabels: *masterLabels
+    patches: *intelextensions
+
+  # HP Elitedesk 800 G3 DM 3.1GHz / 24GB / 1TB NVMe / 1GbE+2.5GbE
+  - hostname: elite3.k8s.${domainName}
+    ipAddress: 192.168.1.53
+    installDiskSelector:
+      serial: 230631800494
+    controlPlane: true
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - eth0
+            - eth1
+          # deviceSelectors:
+          #   - hardwareAddr: ac:e2:d3:03:0f:93
+          #   - hardwareAddr: 1c:fd:08:7a:98:c3
+          mode: balance-alb
+        addresses:
+          - 192.168.1.53/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+        vip:
+          ip: ${clusterEndpointIP}
+    nodeLabels: *masterLabels
+    patches: *intelextensions
+
+  # HP Elitedesk 800 G3 DM 3.1GHz / 24GB / 1TB NVMe / 1GbE+2.5GbE
+  - hostname: elite4.k8s.${domainName}
+    ipAddress: 192.168.1.54
+    installDiskSelector:
+      serial: 230631800519
+    controlPlane: false
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - eth0
+            - eth1
+          # deviceSelectors:
+          #   - hardwareAddr: 10:e7:c6:07:38:65
+          #   - hardwareAddr: 1c:fd:08:7a:97:f8
+          mode: balance-alb
+        addresses:
+          - 192.168.1.54/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels: &workerLabels
+      node-role.kubernetes.io/worker: worker
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: w
+      linbit.com/storagenode: "true"
+    patches: *intelextensions
+
+  # HP Elitedesk 800 G3 DM 3.1GHz / 24GB / 1TB NVMe / 1GbE+2.5GbE
+  - hostname: elite5.k8s.${domainName}
+    ipAddress: 192.168.1.55
+    installDiskSelector:
+      serial: 230631800847
+    controlPlane: false
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - eth0
+            - eth1
+          # deviceSelectors:
+          #   - hardwareAddr: 10:e7:c6:11:b2:bc
+          #   - hardwareAddr: 1c:fd:08:7a:97:bb
+          mode: balance-alb
+        addresses:
+          - 192.168.1.55/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels: *workerLabels
+    patches: *intelextensions
+
+  # HP Elitedesk 800 G3 DM 3.1GHz / 24GB / 1TB NVMe / 1GbE+2.5GbE
+  - hostname: elite6.k8s.${domainName}
+    ipAddress: 192.168.1.56
+    installDiskSelector:
+      serial: 23052C800176
+    controlPlane: false
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: bond0
+        bond:
+          interfaces:
+            - eth0
+            - eth1
+          # deviceSelectors:
+          #   - hardwareAddr: ac:e2:d3:03:0f:bf
+          #   - hardwareAddr: 1c:fd:08:7a:98:16
+          mode: balance-alb
+        addresses:
+          - 192.168.1.56/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels: *workerLabels
+    patches: *intelextensions
+
+  # Raspberry Pi Model 4B
+  - hostname: elitepi1.k8s.${domainName}
+    ipAddress: 192.168.1.41
+    installDisk: /dev/mmcblk0
+    controlPlane: false
+    nameservers:
+      - ${gatewayIP}
+    networkInterfaces:
+      - interface: eth0
+        addresses:
+          - 192.168.1.41/24
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: ${gatewayIP}
+    nodeLabels:
+      node-role.kubernetes.io/worker: worker
+      topology.kubernetes.io/region: *cluster
+      topology.kubernetes.io/zone: w
+
+controlPlane:
+  inlinePatch:
+    cluster:
+      allowSchedulingOnMasters: true
+      etcd:
+        extraArgs:
+          listen-metrics-urls: http://0.0.0.0:2381
+      controllerManager:
+        extraArgs:
+          bind-address: 0.0.0.0
+      scheduler:
+        extraArgs:
+          bind-address: 0.0.0.0
+      apiServer:
+        disablePodSecurityPolicy: true
+        admissionControl:
+          - name: PodSecurity
+            configuration:
+              apiVersion: pod-security.admission.config.k8s.io/v1alpha1
+              defaults:
+                audit: restricted
+                audit-version: latest
+                enforce: baseline
+                enforce-version: latest
+                warn: restricted
+                warn-version: latest
+              exemptions:
+                namespaces:
+                  - kube-system
+                runtimeClasses: []
+                usernames: []
+              kind: PodSecurityConfiguration
+        auditPolicy:
+          apiVersion: audit.k8s.io/v1
+          kind: Policy
+          rules:
+            - level: Metadata
+      discovery:
+        registries:
+          service:
+            disabled: true
+      coreDNS:
+        disabled: true
+      extraManifests:
+        - https://github.com/themicknugget/k8s-GitOps/raw/main/talos/integrations/cert-approver.yaml
+        - https://github.com/themicknugget/k8s-GitOps/raw/main/talos/integrations/coredns.yaml
+    machine: &machine
+      registries:
+        mirrors:
+          docker.io:
+            endpoints:
+              - https://registry-docker.${SECRET_REGISTRY}
+          gcr.io:
+            endpoints:
+              - https://registry-gcr.${SECRET_REGISTRY}
+          ghcr.io:
+            endpoints:
+              - https://registry-ghcr.${SECRET_REGISTRY}
+          registry.k8s.io:
+            endpoints:
+              - https://registry-k8s.${SECRET_REGISTRY}
+      install:
+        image: ghcr.io/siderolabs/installer:v1.3.7
+        extensions:
+          - image: ghcr.io/siderolabs/drbd:9.2.0-v1.3.7
+        extraKernelArgs:
+          - talos.logging.kernel=udp://192.168.1.62:6001/
+      logging:
+        destinations:
+          - endpoint: udp://192.168.1.62:6002/
+            format: json_lines
+      kernel:
+        modules:
+          - name: drbd
+            parameters:
+              - usermode_helper=disabled
+          - name: drbd_transport_tcp
+      sysfs:
+        devices.system.cpu.intel_pstate.no_turbo: 1
+        devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
+      sysctls:
+        fs.inotify.max_user_watches: 1048576
+        fs.inotify.max_user_instances: 8192
+        kernel.randomize_va_space: 0
+        net.core.netdev_max_backlog: 25000
+        net.core.rmem_max: 4136960
+        net.core.wmem_max: 4136960
+        net.ipv4.tcp_congestion_control: cubic
+        net.ipv4.tcp_fin_timeout: 1
+        net.ipv4.tcp_limit_output_bytes: 131072
+        net.ipv4.tcp_low_latency: 0
+        net.ipv4.tcp_max_tw_buckets: 450000
+        net.ipv4.tcp_rmem: 4096 87380 4136960
+        net.ipv4.tcp_wmem: 4096 87380 4136960
+        net.ipv4.tcp_tw_reuse: 1
+      network:
+        extraHostEntries:
+          - ip: ${clusterEndpointIP}
+            aliases:
+              - k8s.${domainName}
+          - ip: ${gatewayIP}
+            aliases:
+              - nas.${domainName}
+      time:
+        disabled: false
+        servers:
+          - pool.ntp.org
+      kubelet:
+        defaultRuntimeSeccompProfileEnabled: true
+        disableManifestsDirectory: true
+        extraArgs:
+          feature-gates: GracefulNodeShutdown=true
+          rotate-server-certificates: true
+      features:
+        rbac: true
+        stableHostname: true
+        apidCheckExtKeyUsage: true
+      files:
+        - content: |
+            [plugins."io.containerd.grpc.v1.cri"]
+              enable_unprivileged_ports = true
+              enable_unprivileged_icmp = true
+          path: /etc/cri/conf.d/20-customization.part
+          op: create
+worker:
+  inlinePatch:
+    machine:
+      !!merge <<: *machine

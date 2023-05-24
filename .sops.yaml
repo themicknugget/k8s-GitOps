@@ -1,0 +1,16 @@
+---
+creation_rules:
+  - path_regex: talos/.*\.sops.ya?ml
+    encrypted_regex: '((?i)(pass|secret($|[^N])|ca|crt|key|token|^data$|^stringData$))'
+    key_groups:
+      - age:
+          - age1g3tlvcegfpl0nnaufvw57f9q5hl4h5zyuwrvwnwuahe9dauej3rsf0rf9g
+  - path_regex: kubernetes/.*\.sops\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    key_groups:
+      - age:
+          - age1g3tlvcegfpl0nnaufvw57f9q5hl4h5zyuwrvwnwuahe9dauej3rsf0rf9g
+  - path_regex: terraform/.*\.sops\.ya?ml
+    key_groups:
+      - age:
+          - age1g3tlvcegfpl0nnaufvw57f9q5hl4h5zyuwrvwnwuahe9dauej3rsf0rf9g

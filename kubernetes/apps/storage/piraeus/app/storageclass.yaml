@@ -1,0 +1,14 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    kustomize.toolkit.fluxcd.io/force: enabled
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: piraeus
+provisioner: linstor.csi.linbit.com
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  storagePool: elitepool
+  placementCount: "3" # Temporary until bugfix
+  disklessOnRemaining: "true"

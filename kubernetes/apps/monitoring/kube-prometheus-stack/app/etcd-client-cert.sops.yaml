@@ -1,0 +1,30 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+metadata:
+    name: etcd-client-cert
+    namespace: monitoring
+stringData:
+    ca.crt: ENC[AES256_GCM,data:7GRs37mHfsaedqJiZrINM11WBbmWqh2p6C/m0uuJvWygXIGyonsIjIYjbaAkJWLW8XwTml6eOZgax3HZYvx0GFNGX9UkzRqUCHEz3G9r118dOingtek5P7fATvqC1t/BLUo/2FqLbcCIWOYFrRSZW9VvX3KefDISt3nfPppljXsVsdhnFFetr6boiARb2P3lUigSnGE44LVLhmBHWpeSxa2sVo4R5euCsStVK7hz5zuM4w2ubcNDiIzwIOsCgq1FKG/MzERNQGyhDZSTYBkmEH2YFtcmf+a4l3pwH0fUA4V87r7yOXZm7Pg1OblPorfwuq6mRx0Zd/avhtfe9039RrwnOZO5qsENOb6MUZXwTsQVoXJniAWlWZKZ1Uklz+sbxxVyHujuClshyKsPXPHs2jE0ciWlEjg2pHPKd12WNxaTluvQwCVl4DXW++IXwan8na0ReVs6m3a2mzrdiK5Ny7Vo/qQdOvOK46G8GwLOD4WxaE0NaP3E9JXYj/n+6k0bm1Ay6WNUAlbumqeRTKSkhO+NmByR28mGVSQ2b76LEikIwzXsPwRs5MXu+OCTZR5zCi5omdtYS/4aV4Hvu3rTZjHvRlan6kypVDb0U/T/QK68Ou59cT3Y3Z8M2tvLFxB9WF5PFzBW0o6tjw9UP58R4C1bdcOASyS0Viwy8R2l9PxIjeYJiCbCer61hG3xrjPdIssNaJCf99Dyxc6UFjhnxIIJvvxeOKal9i8vvB0u+eGJpXx9dDhsZOE7hTk9/1rUg1j2a6jRm+wJ43L27IxK3mmHlLkz8f1PK3Tqe/vEaBLfM8AJmmlplLfUrRRKWph1oVFeMQynhx0lpYTeyA8KOJ8FuxWvIf0FspwFlQJ0OlAhtCZCynp+volfgsn3YFtt5kBAoWBIRwFF5qUm2wVnV3VqFgoUDOOnBmw8FN6qefCyhUNAo57g2uvg5NDFU/3X6H1qt7ruUTUuf5+R2akXLjd1BXNalGTtrRVn21E6ACnU65ZtFZiQq4iEdVQ1b02tKtCePQ==,iv:XQqUM8BR8lpsgy7HQvZZoDkfAIcwMwjhbj5S6QqRUaQ=,tag:HNq8JoYj55l4iXpjkU6YyA==,type:str]
+    healthcheck-client.crt: ENC[AES256_GCM,data:DptCJhW36uJ5YrKzLFaSYNmkmWpD7Za4TfohscsdlPdnSTFvTPNmc0ks2gDjCA+rdIdWUtmNWAU6wqf0A6pKU7P4eqEWgRZFaWPLT1NhFnpNvlJNTpidGrpyvKwhJlRBNrqiw1rNTrUczFqUTZQ27KKloIEwmDKIf86sF7+irYq0wB8r110ViFPxblgJ15IlUs7Or8DVCi6ceBII9HWe0Lyq8Si19RMXgLd73RKHZieyvPG2H2h1CfGKyP87t4xpx9atRh6hlgnhS6ZF/vgmsHEdAoXApBbaG2xcArmPUtYiScTZSEmAJQdtDkHF+3XLQQANKd6gE7xz87kFNUADmKH3Z18ilXAv0vgQVHA0ersqY+CkaDBHUAFfw+6urpGYE8J0yyrbGRMLgy1/ZUVxR0xBNs+F0WPY3FSDK9I5qtuAfOWI0leEkMSktCGarZQv7twvkMB8EAVJhPpXBJHwb5fLyVaUzSqrNpfu90FzJtdtSvIQVMT4Qwp910N0obnWl9VQOiZYKNj/GuZsHiZrEPPx9KDRwYMaRFbfi211hCHjcqJjA56Mo2kKRAFm7V2B7Z0f1zS+1TwCf6MX0dsW5PWHOwrEGeULvueh+8KIK15yZji4vw7vjC+iax4IQ67Y2ZC3BlKZB5u9sEbPyXcXQbNeRqjVamWRZMFgvjlishSLOamSUP1fe80yq3vTnAxxPBhGCylA4SEYtHAgDoZgzpU28+MdgnFC0ci34GKh8MoZyTK9nafwXQqKdeqX3VaJlx/UMJyBARzheWok1ao8h0SQSgDwTvo5Vf6rQMYYf0d/gN3eoIo1ojByCdD4G92QAcYFLKh9nxDeQiooop6TpSv5/p4H5H8vRLGYE/vNHfDBfFzBVhWHOhoosCXRTZAPRaoakNJvrgzYc1d4eNmoZakRJZORI8AuBl8f6XGM5+DwjmoWUiy9PAXs467sKJENlZ6L32cV/hC4sHuat2HwUjoHS6RWbjaY,iv:Msv5u9AGRlHEqq5NwORtjv7hLx+cdsBpFTOH/JqwyBA=,tag:PSZMGGkpU570Arh8tqmp3w==,type:str]
+    healthcheck-client.key: ENC[AES256_GCM,data:WwDbCGLQAtqysIBhPeCERmxA6L8jqJdHf2cfPT8ln1RPbgTqHcheWJvrADQe7zi2FLDSvqTetSmI0GYiWsfdTrid7UIYzMgDNd4vb7Pj2pD9B/afjB2RWXQeOv6SLa+aL+vQQnj/F5375dIQOZiDgP7Vn/z402/pV505OP30tbIZMLhA56ICBTLx8+lduBV8HBjtx+WbUKQcc2q+D53N3ljoOqnFngBd9vMJnG04VA6oklyO74GEOwJqFtOQA6SVgBRvo7bGKj7AVLObwL2zTwyTAz3h4SvRcz94e3DYPjiSZNsbONJtGXOHLVj6pY8H8gXGgwW3fcbD3GaxkUwGI1TKXX5+8cosMuK5MiKq5Z2+MWOCCXr188Cfl4umLj5N3CqM8Qbtq5n8NH2oHaZoaA==,iv:otFxDH9Ofvu6PZNgriLD/Yvx4fomiHpR2h0ufSrrbMI=,tag:452htUFeEasNTcySslTECA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1g3tlvcegfpl0nnaufvw57f9q5hl4h5zyuwrvwnwuahe9dauej3rsf0rf9g
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHSXFaaHU3UWVoZVd0enBR
+            a0FqUHJ0QUVQTkwwdm4zaDJvdFNwRFJVbnpvCmlmZDdoTEp2WUc5S1ZNbzBpdXFk
+            NmRXcFZrY3JLbDAxREVlOU0wMWNwYXMKLS0tIHNjdUcxVTYzT2VOYjJmbnhtUld4
+            eFpHVFBncGdNclA0b1NlKzZFUHZUZkEKg6oPPdOUODNLYPqydQiROPBJxNUB4sWo
+            xSRknv3xEY/Wv48714T6b+ATZKVBt0uSZKqvpMIXNnKmi9QakH1nAQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-05-22T19:46:08Z"
+    mac: ENC[AES256_GCM,data:mOEpRrq4tpXzicRF61V1M3tAZQCocg/gVp3+Cidt3ad7GlFRAHEsF/fLoqqvppWDRxdOJtbAH07izFMpfBrFg9poiWE/K0efD0+ohjfPLKrvh9dd241q57Q2QzI47EfmYRzDRruo1koub1Jb5Cm/kJ2zZZRrJe8C1FEsNkbftuE=,iv:+9FP4OFIhOHcxInZ+mFeel6zkVNxBFOA9RY/aQyVcOA=,tag:BrhMAYC0LPFYFF0gzEE0jA==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

@@ -1,0 +1,32 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cluster-apps-smartctl-exporter
+  namespace: flux-system
+  labels:
+    substitution.flux.home.arpa/enabled: 'true'
+spec:
+  path: './kubernetes/apps/monitoring/exporters/smartctl-exporter/app/'
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8s-gitops
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
+  wait: true
+  patches:
+    - patch: |-
+        apiVersion: apps/v1
+        kind: DaemonSet
+        metadata:
+          name: not-used
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                kubernetes.io/arch: amd64
+      target:
+        kind: DaemonSet
+        labelSelector: "app.kubernetes.io/instance=smartctl-exporter"
