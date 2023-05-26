@@ -49,6 +49,9 @@ nodes:
     patches: &intelextensions
       - |-
         machine:
+          sysfs:
+            devices.system.cpu.intel_pstate.no_turbo: 1
+            devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
           install:
             extensions:
               - image: ghcr.io/siderolabs/i915-ucode:20230404
@@ -294,9 +297,6 @@ controlPlane:
             parameters:
               - usermode_helper=disabled
           - name: drbd_transport_tcp
-      sysfs:
-        devices.system.cpu.intel_pstate.no_turbo: 1
-        devices.system.cpu.cpu0.cpufreq.scaling_governor: performance
       sysctls:
         fs.inotify.max_user_watches: 1048576
         fs.inotify.max_user_instances: 8192
