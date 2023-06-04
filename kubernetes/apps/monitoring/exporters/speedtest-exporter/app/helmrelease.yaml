@@ -30,7 +30,7 @@ spec:
       repository: ghcr.io/miguelndecarvalho/speedtest-exporter
       tag: v3.5.3
     env:
-      SPEEDTEST_CACHE_FOR: 3600
+      SPEEDTEST_CACHE_FOR: "3600"
     service:
       main:
         ports:
