@@ -192,6 +192,12 @@ spec:
               - targets:
                   # IP of the exporter
                   - smartplug-exporter.monitoring:9233
+            # scrape extra
+          - job_name: 'ryzen_exporter'
+            static_configs:
+              - targets:
+                  # IP of the exporter
+                  - 192.168.1.102:9100
         thanos:
           image: quay.io/thanos/thanos:v0.31.0
           objectStorageConfig:
