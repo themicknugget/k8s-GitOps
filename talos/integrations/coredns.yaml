@@ -63,14 +63,11 @@ data:
         prometheus :9153
 
         hosts {
-            192.168.1.51 elite1
-            192.168.1.52 elite2
-            192.168.1.53 elite3
-            192.168.1.54 elite4
-            192.168.1.55 elite5
-            192.168.1.56 elite6
+            192.168.1.51 talos1
+            192.168.1.52 talos2
+            192.168.1.53 talos3
 
-            192.168.1.41 elitepi1
+            192.168.1.41 talospi1
 
             fallthrough
         }
